@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class MenuPrincipalView extends JFrame {
     // Definimos los botones como públicos para que el controlador los use
-    public JButton btnUsuarios, btnProductos, btnVentas, btnCursos;
+    public JButton btnSitios, btnArqueologo, btnExpendicion, btnHallazgo;
 
     public MenuPrincipalView() {
         // 1. Configuración de la ventana
@@ -30,19 +30,19 @@ public class MenuPrincipalView extends JFrame {
         JPanel pnlBotones = new JPanel(new GridLayout(2, 2, 25, 25)); // 2 filas, 2 columnas
         pnlBotones.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
-        btnUsuarios = new JButton("Usuarios");
-        btnProductos = new JButton("Productos");
-        btnVentas = new JButton("Ventas");
-        btnCursos = new JButton("Cursos");
+        btnSitios = new JButton("Sitios");
+        btnArqueologo = new JButton("Arqueologos");
+        btnExpendicion = new JButton("Expediciones");
+        btnHallazgo = new JButton("Hallazgos");
 
         // Personalización opcional de botones
-        btnUsuarios.setFocusable(false);
-        btnProductos.setFocusable(false);
+        btnSitios.setFocusable(false);
+        btnArqueologo.setFocusable(false);
 
-        pnlBotones.add(btnUsuarios);
-        pnlBotones.add(btnProductos);
-        pnlBotones.add(btnVentas);
-        pnlBotones.add(btnCursos);
+        pnlBotones.add(btnSitios);
+        pnlBotones.add(btnArqueologo);
+        pnlBotones.add(btnExpendicion);
+        pnlBotones.add(btnHallazgo);
 
         add(pnlBotones, BorderLayout.CENTER);
 

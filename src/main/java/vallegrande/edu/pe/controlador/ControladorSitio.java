@@ -5,19 +5,19 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import vallegrande.edu.pe.modelo.usuario;
-import vallegrande.edu.pe.modelo.usuarioDAO;
-import vallegrande.edu.pe.vista.VistaUsuario;
+import vallegrande.edu.pe.modelo.Sitio;
+import vallegrande.edu.pe.modelo.SitioDAO;
+import vallegrande.edu.pe.vista.VistaSitio;
 
-public class ControladorUsuario implements ActionListener {
+public class ControladorSitio implements ActionListener {
 
-    private VistaUsuario vista;
-    private usuarioDAO dao;
-    private usuario u = new usuario();
+    private VistaSitio vista;
+    private SitioDAO dao;
+    private Sitio u = new Sitio();
 
-    public ControladorUsuario(VistaUsuario v) {
+    public ControladorSitio(VistaSitio v) {
         this.vista = v;
-        this.dao = new usuarioDAO();
+        this.dao = new SitioDAO();
         // Escuchamos los tres botones de la vista
         this.vista.btnListar.addActionListener(this);
         this.vista.btnAgregar.addActionListener(this);
@@ -42,24 +42,28 @@ public class ControladorUsuario implements ActionListener {
     public void listar() {
         DefaultTableModel modeloTabla = (DefaultTableModel) vista.tabla.getModel();
         modeloTabla.setRowCount(0);
-        List<usuario> lista = dao.listar();
+        List<Sitio> lista = dao.listar();
         Object[] fila = new Object[3];
-        for (usuario user : lista) {
+        for (Sitio user : lista) {
             fila[0] = user.getId();
             fila[1] = user.getNombre();
-            fila[2] = user.getCorreo();
+            fila[2] = user.getPais();
+            fila[3] = user.getAños();
+            fila[4] = user.getEstado();
             modeloTabla.addRow(fila);
         }
     }
 
     public void agregar() {
         String nom = vista.txtNombre.getText();
-        String correo = vista.txtCorreo.getText();
+        String pais = vista.txtPais.getText();
+        String año = vista.txtAños.getText();
+        String estado = vista.txtEstado.getText();
         u.setNombre(nom);
-        u.setCorreo(correo);
+        u.setPais(pais);
         int r = dao.agregar(u);
         if (r == 1) {
-            JOptionPane.showMessageDialog(vista, "Usuario agregado con éxito");
+            JOptionPane.showMessageDialog(vista, "Sitio agregado con éxito");
             limpiarCampos();
         } else {
             JOptionPane.showMessageDialog(vista, "Error al agregar");
@@ -73,13 +77,13 @@ public class ControladorUsuario implements ActionListener {
         } else {
             int id = Integer.parseInt(vista.tabla.getValueAt(fila, 0).toString());
             dao.eliminar(id);
-            JOptionPane.showMessageDialog(vista, "Usuario eliminado");
+            JOptionPane.showMessageDialog(vista, "SITIO eliminado");
         }
     }
 
     private void limpiarCampos() {
         vista.txtNombre.setText("");
-        vista.txtCorreo.setText("");
+        vista.txtPais.setText("");
         vista.txtNombre.requestFocus();
     }
 }

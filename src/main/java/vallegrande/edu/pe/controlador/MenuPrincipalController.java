@@ -3,7 +3,7 @@ package vallegrande.edu.pe.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import vallegrande.edu.pe.vista.MenuPrincipalView;
-import vallegrande.edu.pe.vista.VistaUsuario;
+import vallegrande.edu.pe.vista.VistaSitio;
 // import vallegrande.edu.pe.controlador.UsuarioController;
 
 public class MenuPrincipalController implements ActionListener {
@@ -14,29 +14,29 @@ public class MenuPrincipalController implements ActionListener {
         this.vistaMenu = vistaMenu;
 
         // Escuchar los botones del menú
-        this.vistaMenu.btnUsuarios.addActionListener(this);
-        this.vistaMenu.btnProductos.addActionListener(this);
+        this.vistaMenu.btnSitios.addActionListener(this);
+        this.vistaMenu.btnSitios.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == vistaMenu.btnUsuarios) {
+        if (e.getSource() == vistaMenu.btnSitios) {
             // 1. Instanciar la vista de Usuarios que ya hiciste
-            VistaUsuario vUsuario = new VistaUsuario();
+            VistaSitio vistaSitio = new VistaSitio();
 
             // 2. Instanciar su controlador (aquí se une con el trabajo de tu equipo)
             // UsuarioController cUsuario = new UsuarioController(vUsuario);
 
             // 3. Mostrar la ventana
-            vUsuario.setVisible(true);
+            vistaSitio.setVisible(true);
 
             // Opcional: Ocultar el menú principal
             // vistaMenu.setVisible(false);
         }
 
-        if (e.getSource() == vistaMenu.btnProductos) {
+        if (e.getSource() == vistaMenu.btnSitios) {
             // Lo mismo para productos cuando tus compañeros lo tengan listo
-            System.out.println("Abriendo módulo de productos...");
+            System.out.println("Abriendo módulo arqueologicos...");
         }
     }
 }
