@@ -12,20 +12,21 @@ public class SitioDAO {
     PreparedStatement ps;
     ResultSet rs;
 
-    public List listar() {
+    // 1. Método LISTAR (Mapeado exactamente con las columnas de tu MySQL)
+    public List<Sitio> listar() {
         List<Sitio> datos = new ArrayList<>();
-        String sql = "select * from usuario"; // Cambia 'usuarios' por el nombre de tu tabla
+        String sql = "select * from sitio"; // 🔥 CORREGIDO: 'sitio' en singular
         try {
             con = conectar.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Sitio u = new Sitio();
-                u.setId(rs.getInt("id")); // "id" debe ser el nombre de la columna en MySQL
-                u.setNombre(rs.getString("nombre"));
+                u.setId(rs.getInt("id"));
+                u.setNombre(rs.getString("Nombres")); // 🔥 CORREGIDO: Tu columna es 'Nombres' con N mayúscula y S al final
                 u.setPais(rs.getString("Pais"));
-                u.setPais(rs.getString("Años"));
-                u.setPais(rs.getString("Estado"));
+                u.setAños(rs.getString("Años"));
+                u.setEstado(rs.getString("Estado"));
                 datos.add(u);
             }
         } catch (Exception e) {
@@ -34,13 +35,19 @@ public class SitioDAO {
         return datos;
     }
 
+    // 2. Método AGREGAR (CORREGIDO: Mapeado con la tabla 'sitio' y la columna 'Nombres')
     public int agregar(Sitio u) {
-        String sql = "insert into usuario(nombre, Pais, Años ,Estado) values(?,?)";
+        // 🔥 CORREGIDO: Tabla 'sitio' y columna 'Nombres' idénticas a tu script
+        String sql = "insert into sitio(Nombres, Pais, Años, Estado) values(?, ?, ?, ?)";
         try {
             con = conectar.getConnection();
             ps = con.prepareStatement(sql);
+
             ps.setString(1, u.getNombre());
             ps.setString(2, u.getPais());
+            ps.setString(3, u.getAños());
+            ps.setString(4, u.getEstado());
+
             return ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error al agregar: " + e);
@@ -48,12 +55,13 @@ public class SitioDAO {
         }
     }
 
-    // Método para eliminar un usuario por ID
+    // 3. Método ELIMINAR (CORREGIDO: Cambiado a la tabla 'sitio')
     public void eliminar(int id) {
-        String sql = "delete from usuario where id=" + id;
+        String sql = "delete from sitio where id = ?";
         try {
             con = conectar.getConnection();
             ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error al eliminar: " + e);
